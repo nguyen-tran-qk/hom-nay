@@ -77,7 +77,7 @@ async function onCountryChange(newCode) {
 async function init() {
     // Register service worker
     if ("serviceWorker" in navigator) {
-        navigator.serviceWorker.register("/sw.js").catch(() => {});
+        navigator.serviceWorker.register("./sw.js").catch(() => {});
     }
 
     const country = getSavedCountry() || detectCountry();
