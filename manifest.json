@@ -1,0 +1,24 @@
+{
+    "name": "Holiday Countdown",
+    "short_name": "Next Holiday",
+    "description": "Real-time countdown to the next public holiday in your country.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#09090f",
+    "theme_color": "#09090f",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/assets/icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/assets/icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

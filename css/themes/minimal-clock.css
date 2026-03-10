@@ -1,0 +1,332 @@
+/* ──────────────────────────────────────────────────────────────────────────────
+   minimal-clock.css — Theme: The Minimal Clock
+   ────────────────────────────────────────────────────────────────────────────── */
+
+/* ── Token overrides for this theme ── */
+body.theme-minimal-clock {
+  --bg:           #09090f;
+  --bg-surface:   #111118;
+  --glow:         rgba(180, 160, 255, 0.55);
+  --glow-dim:     rgba(180, 160, 255, 0.12);
+  --text-primary: #f0eeff;
+  --text-muted:   rgba(240, 238, 255, 0.35);
+  --text-label:   rgba(240, 238, 255, 0.22);
+  --accent:       #a78bfa;
+  --accent-dim:   rgba(167, 139, 250, 0.18);
+  --progress-h:   2px;
+  background: var(--bg);
+  color: var(--text-primary);
+}
+
+/* ── Year Progress Bar ── */
+.mc-progress-bar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--progress-h);
+  background: rgba(255, 255, 255, 0.04);
+  z-index: 10;
+}
+
+.mc-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent) 0%, #c4b5fd 100%);
+  box-shadow: 0 0 8px var(--glow);
+  transition: width 1s linear;
+}
+
+/* ── Main layout ── */
+.mc-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100dvh;
+  padding: 2rem 1.5rem;
+  gap: 0;
+  text-align: center;
+  animation: mc-fade-in 0.8s var(--ease-out) both;
+}
+
+@keyframes mc-fade-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Eyebrow label ── */
+.mc-eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--text-label);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+/* ── Holiday name ── */
+.mc-holiday-name {
+  font-family: var(--font-sans);
+  font-size: clamp(1.4rem, 4vw, 2.6rem);
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+  max-width: 22ch;
+}
+
+/* ── Holiday calendar date ── */
+.mc-holiday-date {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-bottom: 2.8rem;
+  letter-spacing: 0.02em;
+}
+
+/* ── Countdown digits ── */
+.mc-countdown {
+  display: flex;
+  align-items: flex-start;
+  gap: clamp(0.6rem, 2.5vw, 1.8rem);
+  margin-bottom: 2.4rem;
+}
+
+.mc-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.mc-digit {
+  font-family: var(--font-mono);
+  font-size: clamp(3rem, 10vw, 7rem);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--text-primary);
+  text-shadow:
+    0 0 30px var(--glow),
+    0 0 60px var(--glow-dim);
+  display: block;
+  min-width: 2ch;
+  letter-spacing: -0.03em;
+  transition: text-shadow 0.4s ease;
+}
+
+.mc-sep {
+  font-family: var(--font-mono);
+  font-size: clamp(2rem, 7vw, 5rem);
+  font-weight: 300;
+  color: var(--text-label);
+  line-height: 1;
+  margin-top: 0.1em;
+  user-select: none;
+  animation: mc-blink 2s ease-in-out infinite;
+}
+
+@keyframes mc-blink {
+  0%, 100% { opacity: 0.4; }
+  50%       { opacity: 0.15; }
+}
+
+.mc-label {
+  font-family: var(--font-sans);
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--text-label);
+  text-transform: uppercase;
+}
+
+/* ── Zero state ── */
+.mc-countdown--zero .mc-digit {
+  text-shadow:
+    0 0 40px rgba(167, 139, 250, 1),
+    0 0 80px rgba(167, 139, 250, 0.6),
+    0 0 120px rgba(167, 139, 250, 0.3);
+  animation: mc-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes mc-pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.04); }
+}
+
+/* ── Local name ── */
+.mc-local-name {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-bottom: 2rem;
+  letter-spacing: 0.03em;
+}
+
+/* ── Country button ── */
+.mc-country-wrap {
+  margin-top: 0.5rem;
+}
+
+.mc-country-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: var(--accent-dim);
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  color: var(--accent);
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, transform 0.15s;
+}
+
+.mc-country-btn:hover {
+  background: rgba(167, 139, 250, 0.28);
+  border-color: rgba(167, 139, 250, 0.45);
+  transform: translateY(-1px);
+}
+
+.mc-globe-icon {
+  width: 1em;
+  height: 1em;
+  stroke-width: 1.6;
+}
+
+/* ── Modal ── */
+.mc-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: mc-fade-overlay 0.2s ease both;
+}
+
+.mc-modal-overlay[hidden] { display: none; }
+
+@keyframes mc-fade-overlay {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.mc-modal {
+  background: #15151f;
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  border-radius: 1.2rem;
+  width: min(420px, 92vw);
+  max-height: 72vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.04) inset;
+  animation: mc-modal-in 0.25s var(--ease-out) both;
+}
+
+@keyframes mc-modal-in {
+  from { transform: translateY(20px) scale(0.97); opacity: 0; }
+  to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.mc-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.4rem 0.8rem;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.mc-modal-header h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.mc-modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 0.3rem;
+  transition: color 0.15s;
+  line-height: 1;
+}
+
+.mc-modal-close:hover { color: var(--text-primary); }
+
+.mc-modal-search {
+  margin: 0.8rem 1.2rem;
+  padding: 0.6rem 0.9rem;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0.6rem;
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.mc-modal-search:focus {
+  border-color: rgba(167, 139, 250, 0.4);
+}
+
+.mc-modal-search::placeholder { color: var(--text-muted); }
+
+.mc-modal-list {
+  list-style: none;
+  overflow-y: auto;
+  flex: 1;
+  padding: 0.4rem 0.6rem 1rem;
+}
+
+.mc-modal-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+  transition: background 0.12s;
+  outline: none;
+}
+
+.mc-modal-item:hover,
+.mc-modal-item:focus {
+  background: rgba(167, 139, 250, 0.1);
+}
+
+.mc-modal-code {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent);
+  min-width: 2.2rem;
+  letter-spacing: 0.06em;
+}
+
+.mc-modal-cname {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+.mc-modal-loading {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .mc-countdown { gap: 0.4rem; }
+  .mc-sep { font-size: clamp(1.6rem, 5vw, 2.5rem); }
+}
